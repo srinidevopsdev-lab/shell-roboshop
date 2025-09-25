@@ -1,7 +1,7 @@
 #!/bin/bash
 
-AMI_ID=ami-09c813fb71547fc4f
-SG_ID=sg-0d23d616835f667d2
+AMI_ID="ami-09c813fb71547fc4f"
+SG_ID="sg-0d23d616835f667d2"
 
 for instance in $@ 
 do
