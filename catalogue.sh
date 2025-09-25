@@ -10,6 +10,7 @@ LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
 LOG_FILE=$LOGS_FOLDER/$SCRIPT_NAME.log
 MONGODB_HOST="mongo.srinivasa.fun"
+SCRIPT_DIR=$(pwd)
 mkdir -p $LOGS_FOLDER
 echo "script started executed at: $(date)" | tee -a $LOG_FILE
 if [ $USERID -ne 0 ]; then
@@ -48,7 +49,7 @@ unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "unzip catalogue content"
 npm install  &>>$LOG_FILE
 VALIDATE $? "npm installing"
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "copying catalogue.service"
 systemctl daemon-reload
 VALIDATE $? "deamon reload"
