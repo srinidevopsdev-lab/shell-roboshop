@@ -41,7 +41,7 @@ if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
     VALIDATE $? "roboshop user is created"
 else
-    echo "User already exist ....$Y skipping $N"
+    echo -e "User already exist ....$Y skipping $N"
 fi
 
 mkdir -p /app 
@@ -52,6 +52,8 @@ cd /app
 VALIDATE $? "Changing to app directory"
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "unzip catalogue content"
+rm -rf /app/*
+VALIDATE $? "removing old"
 npm install  &>>$LOG_FILE
 VALIDATE $? "npm installing"
 cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
