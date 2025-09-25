@@ -59,9 +59,6 @@ VALIDATE $? "removing old"
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "unzip catalogue content"
 
-rm -rf /app/*
-VALIDATE $? "removing old"
-
 npm install  &>>$LOG_FILE
 VALIDATE $? "npm installing"
 
