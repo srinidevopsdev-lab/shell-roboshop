@@ -77,7 +77,7 @@ VALIDATE $? "copying mongo.repo"
 dnf install mongodb-mongosh -y  &>>$LOG_FILE
 VALIDATE $? "installing mongodb client"
 
-mongosh --host $MONGODB_HOST </app/db/master-data.js  &>>$LOG_FILE
+mongosh --host mongodb.srinivasa.fun </app/db/master-data.js  &>>$LOG_FILE
 VALIDATE $? "load catlogue products"
 
 systemctl restart catalogue 
