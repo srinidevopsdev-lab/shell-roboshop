@@ -6,7 +6,7 @@ SG_ID="sg-0d23d616835f667d2"
 for instance in $@ 
 do
     INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t3.micro --security-group-ids 
-    $SG_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" --query 'Instances
+    sg-0d23d616835f667d2 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" --query 'Instances
     [0].InstanceId' --output text)
     
     if ($instance != 'frontend'); then
