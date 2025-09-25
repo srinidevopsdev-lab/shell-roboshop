@@ -18,10 +18,10 @@ fi
 
 VALIDATE () {
     if [ $1 -ne 0 ]; then
-        echo "Error: $2 installation is $R failure $N" | tee -a $LOG_FILE
+        echo "Error: $2 ... $R failure $N" | tee -a $LOG_FILE
         exit 1 # 1 for failure
     else
-        echo -e "$2 installation is $G successful $N" | tee -a $LOG_FILE
+        echo -e "$2 ... $G successful $N" | tee -a $LOG_FILE
     fi
 }
 
@@ -36,3 +36,9 @@ VALIDATE $? "Enabling mongodb"
 
 systemctl start mongod 
 VALIDATE $? "Starting mongodb"
+
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+VALIDATE $? "Allowing remote connections to mongodb"
+
+systemctl restart mongod
+VALIDATE $? "Restarted mongodb"
