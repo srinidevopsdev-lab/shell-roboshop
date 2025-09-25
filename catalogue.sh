@@ -20,7 +20,7 @@ fi
 
 VALIDATE () {
     if [ $1 -ne 0 ]; then
-        echo "Error: $2 ... $R failure $N" | tee -a $LOG_FILE
+        echo -e "Error: $2 ... $R failure $N" | tee -a $LOG_FILE
         exit 1 # 1 for failure
     else
         echo -e "$2 ... $G successful $N" | tee -a $LOG_FILE
@@ -50,6 +50,8 @@ curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue
 VALIDATE $? "Downloading catalogue content"
 cd /app 
 VALIDATE $? "Changing to app directory"
+rm -rf /app/*
+VALIDATE $? "removing old"
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "unzip catalogue content"
 rm -rf /app/*
