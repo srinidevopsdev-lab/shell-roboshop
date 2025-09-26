@@ -77,8 +77,13 @@ VALIDATE $? "copying mongo.repo"
 dnf install mongodb-mongosh -y  &>>$LOG_FILE
 VALIDATE $? "installing mongodb client"
 
-mongosh --host mongodb.srinivasa.fun </app/db/master-data.js  &>>$LOG_FILE
-VALIDATE $? "load catlogue products"
+INDEX=$(mongosh mongodb.srinivasa.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
+if [$INDEX -le 0 ]; then
+    mongosh --host $MONGODB_HOST </app/db/master-data.js  &>>$LOG_FILE
+    VALIDATE $? "load catlogue products"
+else
+    echo -e "mongodb is already exist...$Y Skipping $N"
+fi
 
 systemctl restart catalogue 
 VALIDATE $? "Restarting catalogue"
