@@ -11,6 +11,7 @@ SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
 LOG_FILE=$LOGS_FOLDER/$SCRIPT_NAME.log
 MONGODB_HOST="mongo.srinivasa.fun"
 SCRIPT_DIR=$(pwd)
+START_TIME=$(date +%s)
 mkdir -p $LOGS_FOLDER
 echo "script started executed at: $(date)" | tee -a $LOG_FILE
 if [ $USERID -ne 0 ]; then
@@ -73,3 +74,7 @@ VALIDATE $? "Enable cart"
 
 systemctl restart cart 
 VALIDATE $? "Restarting cart"
+
+END_TIME=$(date +%s)
+TOTAL_TIME=$(($END_TIME - $START_TIME))
+echo -e "Script executed time: $Y $TOTAL_TIME $N"
